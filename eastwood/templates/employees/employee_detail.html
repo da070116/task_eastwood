@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table table-borderless table-sm mt-20 text-center">
+  <tbody>
+    <tr>
+        <th scope="row" colspan="2">Detail employee view </th>
+    </tr>
+    <tr>
+      <th scope="row" style="text-align: right;">Full name:</th>
+      <td style="text-align: left;">{{ employee.name }}
+     {% if  employee.patronymic %}
+          {{ employee.patronymic }}
+    {% endif %}
+          {{ employee.surname }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row" style="text-align: right;">Birth date:</th>
+      <td style="text-align: left;">{{ employee.birth_date }}</td>
+    </tr>
+    <tr>
+      <th scope="row" style="text-align: right;">Work time:</th>
+      <td style="text-align: left;">
+        {{ employee.started_work }} &mdash;
+    {% if employee.ended_work %}
+        {{ employee.ended_work }}
+    {% else %}
+        Now
+    {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th scope="row" style="text-align: right;">Work place:</th>
+      <td style="text-align: left;">    {{ employee.position }} in {{ employee.dept }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

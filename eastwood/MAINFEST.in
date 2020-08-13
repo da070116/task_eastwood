@@ -1,0 +1,3 @@
+include README.rst
+recursive-include eastwood/static *
+recursive-include eastwood/templates *

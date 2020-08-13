@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>
+  Dictionary
+  {% if selected_key %}
+  : {{ selected_key }}
+   {% endif %}
+</h2>
+<ul class="list-group list-group-horizontal-xl">
+
+{% for k, v in keys.items %}
+  <li class="list-group-item"><a href="{{k}}">{{ v }}</a></li>
+{% endfor %}
+</ul>
+
+{% if dict %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Full name</th>
+      <th scope="col">Position and Department</th>
+      <th scope="col">Worked time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for employee in object_list %}
+
+      <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>
+        <a href="{% url 'employees:detail' employee.id %}">
+          {{ employee.name }}
+           {% if  employee.patronymic %}
+                {{ employee.patronymic }}
+          {% endif %}
+          {{ employee.surname }}
+        </a>
+      </td>
+      <td>{{ employee.position }}, <a href="{% url 'employees:dept' employee.dept.id %}"> {{ employee.dept }}</a></td>
+      <td>
+        {{ employee.started_work }} &mdash;
+        {% if employee.ended_work %}
+            {{ employee.ended_work }}
+        {% else %}
+           now
+        {% endif %}
+      </td>
+      </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% include 'pagination.html' %}
+
+{% endif %}
+
+{% endblock %}

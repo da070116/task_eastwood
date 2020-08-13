@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>All recent employees</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Full name</th>
+      <th scope="col">Position</th>
+      <th scope="col">Worked since</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for employee in recent_employees %}
+
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>
+        <a href="{% url 'employees:detail' employee.id %}">
+          {{ employee.name }}
+           {% if  employee.patronymic %}
+                {{ employee.patronymic }}
+          {% endif %}
+          {{ employee.surname }}
+        </a>
+      </td>
+      <td>
+          {{ employee.position }}, <a href="{% url 'employees:dept' employee.dept.id %}"> {{ employee.dept }}</a>
+      </td>
+      <td>
+        {{ employee.started_work }}
+      </td>
+    </tr>
+
+  {% endfor %}
+
+  </tbody>
+</table>
+
+{% include 'pagination.html' %}
+
+{% endblock %}
